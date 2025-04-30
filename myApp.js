@@ -140,12 +140,20 @@ const removeManyPeople = (done) => {
 
 
 //12:
-
+//Chain Search Query Helpers to Narrow Search Results
+//Modify the queryChain function to find people who like the food specified by the variable named foodToSearch. Sort them by name, limit the results to two documents, and hide their age. Chain .find(), .sort(), .limit(), .select(), and then .exec(). Pass the done(err, data) callback to exec().
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-
-  done(null /*, data*/);
+  Person.find({ favoriteFoods: foodToSearch })
+    .sort({ name: "asc" })
+    .limit(2)
+    .select({ age: 0 })
+    .exec((err, data) => {
+      if (err) return console.log(err);
+      done(err, data);
+    });
 };
+
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
