@@ -128,12 +128,18 @@ const removeById = (personId, done) => {
 
 
 //11:
-
+// Delete Many Documents with model.remove()
+//Modify the removeManyPeople function to delete all the people whose name is within the variable nameToRemove, using Model.remove(). Pass it to a query document with the name field set, and a callback.
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+  Person.remove({ name: nameToRemove }, (err, removedData) => {
+    if (err) return console.log(err);
+    done(null, removedData);
+  });
 };
+
+
+//12:
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
