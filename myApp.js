@@ -8,7 +8,20 @@ let mongoose = require('mongoose'); //*1
 // mongoose.connect(<Your URI>, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-let Person;
+//2:
+// Create a Model
+// Create a person schema called personSchema with the following shape:
+// A required name field of type String
+// An age field of type Number
+// A favoriteFoods field of type [String]
+const personSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  age: Number,
+  favoriteFoods: [String]
+});
+// Now, create a model from the personSchema and assign it to the existing variable Person.
+let Person = mongoose.model("Person", personSchema);
+
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
