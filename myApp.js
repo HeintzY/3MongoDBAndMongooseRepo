@@ -76,16 +76,35 @@ const findOneByFood = function (food, done) {
 };
 
 //7:
-
-const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+//Use model.findById() to Search Your Database By _id
+//Modify the findPersonById to find the only person having a given _id, using Model.findById() -> Person. Use the function argument personId as the search key.
+const findPersonById = function (personId, done) {
+  Person.findById(personId, function (err, idFound) {
+    if (err) return console.log(err);
+    done(null, idFound);
+  });
 };
+
+
+//8:
+// Perform Classic Updates by Running Find, Edit, then Save
+//Modify the findEditThenSave function to find a person by _id (use any of the above methods) with the parameter personId as search key. Add "hamburger" to the list of the person's favoriteFoods (you can use Array.push()). Then - inside the find callback - save() the updated Person.
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
-
-  done(null /*, data*/);
+  Person.findById(personId, (err, personIdFound) => {
+    if (err) return console.log(err);
+    personIdFound.favoriteFoods.push(foodToAdd);
+    personIdFound.save((err, updatedPerson) => {
+      if (err) return console.log(err);
+      done(null, updatedPerson);
+    });
+  });
 };
+
+
+//9:
+
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
